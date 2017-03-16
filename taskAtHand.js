@@ -2,7 +2,7 @@
 
 function TaskAtHandApp()
 {
-    var version = "v1.0";
+    var version = "--v1.0";
 
     function setStatus(message){
         $("#app>footer").text(message);
@@ -16,19 +16,24 @@ function TaskAtHandApp()
             }
         })
         .focus();
-    function addTask(){
-        var taskName = $("#new-task-name").val();
-        if(taskName){
-            addTaskElement(taskName);
-            $("#new-task-name").val("").focus;
-        }
+        function addTask(){
+            var taskName = $("#new-task-name").val();
+            if(taskName){
+                addTaskElement(taskName);
+                $("#new-task-name").val("").focus;
+            }
 
-    }
-    function addTaskElement(taskName){
-        var $task = $("<li></li>");
-        $task.text(taskName);
-        $("#task-list").append($task);
-    }
+        }
+        function addTaskElement(taskName){
+            var $task = $("<li></li>");
+            var $delete = $("<button class = 'delete'>X</button>");
+            $task.append($delete);
+                 .append("<span class = 'task-name'>" + taskName + 
+            "</span>");
+            $delete.click(function(){ $task.remove();});
+            //$task.text(taskName);
+            $("#task-list").append($task);
+        }
         $("#app>header").append(version);
         setStatus("ready");
     };
@@ -40,4 +45,6 @@ $(function(){
     window.app = new TaskAtHandApp();
     window.app.start();
 })
+
+
 
